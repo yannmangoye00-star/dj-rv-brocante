@@ -23,6 +23,150 @@
         }
 
         body {
+            /* --- SECTION ARRIVAGES --- */
+.arrivals-section {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+}
+
+.arrivals-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.arrivals-title {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.arrivals-subtitle {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+/* Carte principale */
+.container-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f5;
+}
+
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 15px;
+}
+
+.container-header h3 {
+    font-size: 20px;
+    color: #222;
+    margin: 0;
+}
+
+.status-badge {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Barre de progression */
+.shipping-progress-wrapper {
+    margin-bottom: 30px;
+}
+
+.shipping-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.progress-bar-bg {
+    background-color: #e9ecef;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, #007bff, #28a745);
+    width: 65%; /* Modifie ce pourcentage pour faire avancer la barre */
+    height: 100%;
+    border-radius: 6px;
+    animation: progressAnimation 2s ease-out;
+}
+
+.estimated-time {
+    font-size: 15px;
+    color: #333;
+    margin: 5px 0 0 0;
+}
+
+/* Liste des éléments attendus */
+.expected-content h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.goods-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.goods-list li {
+    padding: 12px 0;
+    border-top: 1px dashed #e9ecef;
+    font-size: 15px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.goods-list li:first-child {
+    border-top: none;
+}
+
+/* Animation de la barre */
+@keyframes progressAnimation {
+    from { width: 0; }
+    to { width: 65%; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+    .container-card {
+        padding: 20px;
+    }
+    .arrivals-title {
+        font-size: 22px;
+    }
+    .shipping-labels {
+        font-size: 12px;
+    }
+}
             background-color: var(--light);
             color: var(--dark);
         }
@@ -386,6 +530,42 @@
        </svg>
        Faire une Commande Spéciale
     </a>
+</section>
+<!-- Section Prochains Arrivages -->
+<section class="arrivals-section">
+    <div class="arrivals-container">
+        <h2 class="arrivals-title">Prochains Conteneurs & Arrivages 🚢</h2>
+        <p class="arrivals-subtitle">Restez informés des prochains arrivages d'occasion d'Europe en direct au port de Douala.</p>
+        
+        <!-- Carte du conteneur en cours -->
+        <div class="container-card">
+            <div class="container-header">
+                <span class="status-badge">En cours de transit</span>
+                <h3>Conteneur Réf: #CM-EU-2026</h3>
+            </div>
+            
+            <!-- Barre de progression de la livraison -->
+            <div class="shipping-progress-wrapper">
+                <div class="shipping-labels">
+                    <span>Départ d'Europe</span>
+                    <span>Arrivée à Douala</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <p class="estimated-time">📅 Arrivée estimée : <strong>Fin du mois</strong></p>
+            </div>
+
+            <div class="expected-content">
+                <h4>Ce qui est attendu dans ce conteneur :</h4>
+                <ul class="goods-list">
+                    <li>🛋️ <strong>Salons & Canapés :</strong> Canapés en cuir, fauteuils relax.</li>
+                    <li>📺 <strong>Électroménager :</strong> Écrans plats, réfrigérateurs, micro-ondes.</li>
+                    <li>🚴 <strong>Loisirs & Divers :</strong> Vélos d'extérieur, matériel de sonorisation.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
             <!-- Section FAQ -->
 <section class="faq-section" style="max-width: 800px; margin: 40px auto; padding: 20px; font-family: 'Segoe UI', sans-serif;">
