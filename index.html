@@ -476,7 +476,7 @@
         </div>
 
         <main class="container">
-            <div class="grid">
+            <div class="grid" id="liste-produits"></div>
                 
                 <div class="card" data-category="meubles">
                     <div class="badge-status badge-new">Nouveau</div>
@@ -645,7 +645,69 @@
     <footer>
         <p>&copy; 2026 DJ & RV BROCANTE. Tous droits réservés.</p>
     </footer>
+<script>
+    // --- NOUVELLE FONCTION : CONNEXION AU BACKEND ---
+    async function chargerProduits() {
+        try {
+            // Étape A : Appeler l'API de ton serveur Vercel
+            const reponse = await fetch('/api/produits');
+            const produits = await reponse.json();
+            
+            // Étape B : Cibler la grille de ton catalogue
+            const conteneur = document.getElementById('liste-produits');
+            if (!conteneur) return; // Sécurité si l'élément n'est pas trouvé
+            
+            conteneur.innerHTML = ""; // Vider les produits statiques d'avant
 
+            // Étape C : Générer les cartes dynamiques reçues du Backend
+            produits.forEach(produit => {
+                // Associer la bonne couleur de badge selon le statut
+                let badgeClass = "badge-new";
+                if (produit.statut === "Préservé" || produit.statut === "Réservé") badgeClass = "badge-reserved";
+                if (produit.statut === "Vendu") badgeClass = "badge-sold";
+
+                const carteHTML = `
+                    <div class="card" data-category="meubles">
+                        <div class="badge-status ${badgeClass}">${produit.statut}</div>
+                        <div class="card-body">
+                            <h3 class="card-title">${produit.nom}</h3>
+                            <div class="price">${produit.prix}</div>
+                            <div class="location">📍 Douala, Akwa</div>
+                            <a href="https://wa.me/237670899792?text=Bonjour%20je%20suis%20interesse%20par%20le%20produit%20${encodeURIComponent(produit.nom)}" class="filter-btn" style="display: inline-block; margin-top: 10px; text-decoration: none; text-align: center;">
+                                Intéressé(e)
+                            </a>
+                        </div>
+                    </div>
+                `;
+                conteneur.innerHTML += carteHTML;
+            });
+
+        } catch (erreur) {
+            console.error("Erreur lors du chargement des produits Backend :", erreur);
+        }
+    }
+
+    // Lancer automatiquement le chargement dès que la page s'ouvre
+    window.addEventListener('DOMContentLoaded', chargerProduits);
+
+
+    // --- TON ANCIENNE FONCTION DE FILTRAGE (CONSERVÉE) ---
+    function filterCategory(category, button) {
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
     <script>
         function filterCategory(category, button) {
             const buttons = document.querySelectorAll('.filter-btn');
