@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Brocante | Espace Admin</title>
+    <style>
+        :root {
+            --primary: #e67e22;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 20px;
+        }
+        .admin-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h2 { color: var(--dark); text-align: center; margin-bottom: 25px; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover { background-color: #d35400; }
+        #auth-block { text-align: center; }
+        #admin-form-block { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <div id="auth-block">
+            <h2>🔑 Connexion Admin</h2>
+            <div class="form-group">
+                <input type="password" id="admin-password" placeholder="Entrez le mot de passe secret">
+            </div>
+            <button class="btn-submit" onclick="verifierMotDePass()">Accéder à la gestion</button>
+        </div>
+
+        <div id="admin-form-block">
+            <h2>📦 Ajouter un Nouvel Article</h2>
+            <form id="product-form" onsubmit="ajouterArticle(event)">
+                <div class="form-group">
+                    <label for="prod-name">Nom de l'article</label>
+                    <input type="text" id="prod-name" placeholder="Ex: Canapé en cuir 3 places" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prod-price">Prix (avec la devise)</label>
+                    <input type="text" id="prod-price" placeholder="Ex: 250 000 FCFA" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prod-status">Statut de la marchandise</label>
+                    <select id="prod-status">
+                        <option value="Disponible">Disponible ✅</option>
+                        <option value="Réservé">Réservé ⏳</option>
+                        <option value="Vendu">Vendu ❌</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">🚀 Publier sur le site</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mot de passe ultra simple temporaire (on mettra plus lourd après)
+        const CODE_SECRET = "brocante2026";
+
+        function verifierMotDePass() {
+            const saisie = document.getElementById('admin-password').value;
+            if (saisie === CODE_SECRET) {
+                document.getElementById('auth-block').style.display = 'none';
+                document.getElementById('admin-form-block').style.display = 'block';
+            } else {
+                alert("Mot de passe incorrect ❌ Échec de connexion.");
+            }
+        }
+
+        function ajouterArticle(event) {
+            event.preventDefault();
+            
+            // Récupérer les valeurs écrites par ton oncle
+            const nom = document.getElementById('prod-name').value;
+            const prix = document.getElementById('prod-price').value;
+            const statut = document.getElementById('prod-status').value;
+
+            alert(`Détails reçus :\nNom : ${nom}\nPrix : ${prix}\nStatut : ${statut}\n\n(À l'étape suivante, on va lier ce bouton à la vraie Base de Données !)`);
+            
+            // Réinitialiser le formulaire
+            document.getElementById('product-form').reset();
+        }
+    </script>
+</body>
+</html>
