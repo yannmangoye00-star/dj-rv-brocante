@@ -114,7 +114,45 @@
                 alert("Mot de passe incorrect ❌ Échec de connexion.");
             }
         }
+async function ajouterArticle(event) {
+  // Empêche la page de se recharger automatiquement
+  event.preventDefault();
 
+  // 1. Récupération des valeurs saisies dans le formulaire
+  const nom = document.getElementById('prod-name').value;
+  const prix = document.getElementById('prod-price').value;
+  const statut = document.getElementById('prod-status').value;
+
+  // 2. Création de l'objet à envoyer (doit correspondre aux colonnes de ta table Supabase)
+  const nouveauProduit = {
+    nom: nom,
+    prix: prix,
+    statut: statut
+  };
+
+  try {
+    // 3. Envoi des données à notre fonction Serverless Vercel
+    const response = await fetch('/api/produits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(nouveauProduit)
+    });
+
+    if (response.ok) {
+      alert('🎉 Article ajouté avec succès sur le site !');
+      // Réinitialise le formulaire pour le prochain article
+      document.getElementById('product-form').reset();
+    } else {
+      const errorData = await response.json();
+      alert(`❌ Erreur lors de l'ajout : ${errorData.error || 'Erreur inconnue'}`);
+    }
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+    alert("❌ Impossible de contacter le serveur.");
+  }
+}
         function ajouterArticle(event) {
             event.preventDefault();
             
